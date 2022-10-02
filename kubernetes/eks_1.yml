@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-php-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eks-php-1
+  template:
+    metadata:
+      labels:
+        app: eks-php-1
+    spec:
+      volumes:
+      - name: task-pv-storage
+        persistentVolumeClaim:
+          claimName: task-pv-claim
+      containers:
+      - name: eks-php-1
+        image: tushar887/eks-test:latest
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - mountPath: "/app/storage"
+          name: task-pv-storage
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eks-php-1  
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8000
+  selector:
+    app: eks-php-1
