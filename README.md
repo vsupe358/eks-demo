@@ -10,7 +10,7 @@ Things to complete
 
 Resolution:
 
-- Need to build docker image and push it to dockerhub (tushar887/eks-test:latest).
+- Need to build docker image and push it to dockerhub .
 - Execute cmds 
 	
     docker build -t eks . 
